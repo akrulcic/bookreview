@@ -4,9 +4,9 @@
 
 <strong>Fakultet: </strong>Fakultet informatike u Puli (https://fipu.unipu.hr/)
 
-<strong>Kolegij</strong>: Programsko inženjerstvo (ntankovic.unipu.hr/pi)
+<strong>Kolegij</strong>: Programsko inženjerstvo (http://ntankovic.unipu.hr/pi)
 
-<strong>Mentori: </strong>doc. dr. sc. Nikola Tanković (ntankovic.unipu.hr) i Toni Starčić univ. bacc. inf.
+<strong>Mentori: </strong>doc. dr. sc. Nikola Tanković (http://ntankovic.unipu.hr) i Toni Starčić univ. bacc. inf.
 
 <strong>Funkcionalnosti: </strong> 
 > Book review je aplikacija za ljubitelje knjiga i čitanja, koja će korisnicima pomoći pronaći knjigu koja njima odgovara.
