@@ -8,15 +8,36 @@
       <br>
       <h3>Preporuke</h3>
       <hr>
-      <Card />
+      <BookCard v-for="card in cards" :key="card" :autor="card" :info="card"/>
 
     </div>
     <div class="col-1"></div>
   </div>
 </div>
-
 </template>
 
+<script>
+import BookCard from '@/components/BookCard.vue'
+
+let cards = [];
+
+cards = [
+  'https://picsum.photos/200/300',
+  'https://picsum.photos/200/300',
+];
+
+export default {
+  name: 'Home',
+  data: function(){
+    return{
+      cards: cards,
+    };
+  },
+  components: {
+    BookCard,
+  },
+};
+</script>
 
 <style lang="scss">
 #home{
@@ -35,15 +56,3 @@
   }
 }
 </style>
-
-<script>
-// @ is an alias to /src
-import Card from '@/components/Card.vue'
-
-export default {
-  name: 'Home',
-  components: {
-    Card
-  }
-}
-</script>

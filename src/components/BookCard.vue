@@ -1,8 +1,6 @@
 <template>
-
-
        <div class="card" id="card" style="width: 150px;">
-            <img class="card-img-top" src="@/assets/putovanje_jednoga_psa.jpg" alt="Card image cap">
+            <img class="card-img-top" :src="info" alt="Card image cap">
             <div class="card-body">
               <h6 class="card-text">W. Bruce Cameron</h6>
               <p class="card-text">Putovanje jednoga psa</p>
@@ -28,12 +26,12 @@
 
 <script>
 export default {
-  name: 'Card',
-  data: () => ({
-    show: false,
-  }),
-}
+  props: ['info'],
+  name: 'BookCard',
+  
+};
 </script>
+
 <style scoped>
 #button{
   position: absolute;
@@ -43,4 +41,3 @@ export default {
   background-color: transparent;
 }
 </style>
-
