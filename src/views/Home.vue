@@ -8,8 +8,11 @@
       <br>
       <h3>Preporuke</h3>
       <hr>
-      <BookCard v-for="card in cards" :key="card" :autor="card" :info="card"/>
-
+      <div class="card__wrap--outer">
+        <div class="card__wrap--inner">
+        <BookCard v-for="card in filteredCards" :key="card.url" :autor="card" :info="card" />
+        </div>
+      </div>
     </div>
     <div class="col-1"></div>
   </div>
@@ -17,13 +20,15 @@
 </template>
 
 <script>
-import BookCard from '@/components/BookCard.vue'
+import BookCard from '@/components/BookCard.vue';
+import store from '@/store.js'
 
 let cards = [];
 
 cards = [
-  'https://picsum.photos/200/300',
-  'https://picsum.photos/200/300',
+  {url: 'https://picsum.photos/id/1/200/300', autor: 'W. Bruce Cameron', naziv: 'Putovanje jednoga psa'},
+  {url: 'https://picsum.photos/id/2/200/300', autor: 'Kristin Hannah', naziv: 'Slavujeva pjesma'},
+
 ];
 
 export default {
@@ -31,8 +36,18 @@ export default {
   data: function(){
     return{
       cards: cards,
+      store,
     };
   },
+
+  computed:{
+    filteredCards() {
+      let termin = this.store.searchTerm;
+      return this.cards.filter((card) => card.description.includes(termin));
+      
+    },
+  },
+
   components: {
     BookCard,
   },
@@ -40,6 +55,7 @@ export default {
 </script>
 
 <style lang="scss">
+
 #home{
   h3{
     text-align: left;
@@ -55,4 +71,26 @@ export default {
     
   }
 }
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+     padding: 5px;
+    &__wrap {
+
+        &--outer {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+
+        &--inner {
+            display: flex;
+            flex-direction: row;
+            width: 50%;
+        }
+    }
+}
+
 </style>

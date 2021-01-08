@@ -16,10 +16,10 @@
             >
               <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse">
+            <div class="collapse navbar-collapse" id="navbarToggler">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                   <li class="nav-item">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Pretraži" aria-label="Search">
+                    <input v-model="store.searchTerm" class="form-control mr-sm-2" type="search" placeholder="Pretraži" aria-label="Search">
                   </li>
                   
                   <li class="nav-item">
@@ -41,7 +41,18 @@
   </div>
 </template>
 
+<script>
+import store from "@/store.js";
 
+export default {
+  name: 'app',
+  data(){
+    return{
+    store: store,
+    };
+  },
+};
+</script>
 
 <style lang="scss">
 #app {
