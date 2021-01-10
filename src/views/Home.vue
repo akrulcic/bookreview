@@ -2,15 +2,14 @@
 <div class="container" id="home">
   <div class="row">
     <div class="col-1"></div>
-
     <div class="col-10">
-      <br>
-      <br>
+      <br/>
+      <br/>
       <h3>Preporuke</h3>
-      <hr>
+      <hr/>
       <div class="card__wrap--outer">
         <div class="card__wrap--inner">
-        <BookCard v-for="card in filteredCards" :key="card.url" :autor="card" :info="card" />
+        <BookCard v-for="card in cards" :key="card.url" :info="card" />
         </div>
       </div>
     </div>
@@ -43,7 +42,7 @@ export default {
   computed:{
     filteredCards() {
       let termin = this.store.searchTerm;
-      return this.cards.filter((card) => card.description.includes(termin));
+      return this.cards.filter((card) => card.autor.includes(termin));
       
     },
   },
