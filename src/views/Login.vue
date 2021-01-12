@@ -19,7 +19,7 @@
                         <br/>
                         <button type="button" @click="login" class="btn btn-primary">LOG IN</button>
                         <br/>
-<!--ne dela-->          <a>Novi korisnik?</a><router-link to="/signup"> Sign up!</router-link> 
+                        <a>Novi korisnik?</a><router-link to="/signup"> Sign up!</router-link> 
                     </form>
                 </div>
                 <div class="col-sm"></div>
@@ -48,7 +48,6 @@ export default {
         .then((result) => {
             console.log('uspješna prijava', result);
 
-            this.$router.replace({ name: 'Home' });
         })
         .catch(function(e){
             console.error('greška', e);
