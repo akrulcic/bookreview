@@ -3,7 +3,7 @@
             <img class="card-img-top" :src="info.url" alt="Card image cap">
             <div class="card-body">
               <h6 class="card-text">{{  info.autor  }}</h6>
-              <p class="card-text">{{  info.naziv  }}</p>
+              <p class="card-text">{{  info.title  }}</p>
                 <button id="button">
                       <svg
                         width="24"

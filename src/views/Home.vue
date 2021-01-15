@@ -9,34 +9,82 @@
       <hr/>
       <div class="card__wrap--outer">
         <div class="card__wrap--inner">
-        <BookCard v-for="card in cards" :key="card.url" :info="card" />
+        <router-link to="/book"><BookCard v-for="card in cards" :key="card.url" :info="card" /></router-link>
         </div>
       </div>
     </div>
-    <div class="col-1"></div>
+    <div class="col-1">
+      </div>
   </div>
 </div>
 </template>
 
 <script>
 import BookCard from '@/components/BookCard.vue';
-import store from '@/store.js'
-
-let cards = [];
-
-cards = [
-  {url: 'https://picsum.photos/id/1/200/300', autor: 'W. Bruce Cameron', naziv: 'Putovanje jednoga psa'},
-  {url: 'https://picsum.photos/id/2/200/300', autor: 'Kristin Hannah', naziv: 'Slavujeva pjesma'},
-
-];
+import store from '@/store.js';
+import { db } from '@/firebase';
 
 export default {
   name: 'Home',
   data: function(){
     return{
-      cards: cards,
+      cards: [],
       store,
+      newImageUrl:'',
+      newAutor:'',
+      newTitle: '',
     };
+  },
+  mounted(){
+    this.getBooks();
+
+  },
+  methods:{
+    getBooks(){
+      console.log("firebase dohvat");
+
+      db.collection('posts')
+      .get()
+      .then((query) => {
+        this.cards = [];
+        query.forEach((doc) => {
+          const data = doc.data();
+          console.log(data);
+
+          this.cards.push({
+            id: doc.id,
+            time: data.posted_at,
+            autor: data.autor,
+            url: data.url,
+            title: data.title,
+          })
+        });
+      });
+    },
+    postNewBook(){
+
+      const imageUrl = this.newImageUrl;
+      const autor = this.newAutor;
+      const title = this.newTitle;
+
+      db.collection('posts')
+      .add({
+        url: imageUrl,
+        autor: autor,
+        email: store.currentUser,
+        posted_at: Date.now(),
+        title: title,
+      })
+      .then((doc) =>{
+        console.log('spremljeno', doc);
+        this.newImageUrl = '';
+        this.newAutor= '';
+        this.newTitle = '';
+      })
+      .catch((e) =>{
+        console.error(e);
+      });
+    },
   },
 
   computed:{
