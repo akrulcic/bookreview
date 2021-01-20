@@ -1,5 +1,5 @@
 <template>
-<div class="container" id="home">
+<div id="home">
   <div class="row">
     <div class="col-1"></div>
     <div class="col-10">
@@ -7,11 +7,8 @@
       <br/>
       <h3>Preporuke</h3>
       <hr/>
-      <div class="card__wrap--outer">
-        <div class="card__wrap--inner">
-        <router-link to="/book"><BookCard v-for="card in cards" :key="card.url" :info="card" /></router-link>
-        </div>
-      </div>
+        <router-link to="/book"><BookCard v-for="card in cards"  :key="card.url" :info="card" /></router-link>
+      
     </div>
     <div class="col-1">
       </div>
@@ -112,32 +109,13 @@ export default {
   text-align: left;
   font-size: 13px;
   font-weight: bold;
+  padding: 5px;
+  width: 150px;
+
   h6{
     color:rgb(153, 117, 92);
     font-weight: bold;
     
   }
 }
-.card {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-     padding: 5px;
-    &__wrap {
-
-        &--outer {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            width: 100%;
-        }
-
-        &--inner {
-            display: flex;
-            flex-direction: row;
-            width: 50%;
-        }
-    }
-}
-
 </style>

@@ -7,7 +7,7 @@
             <h3>Dodaj novu knjigu</h3>
             <hr/>
             <br/>
-            <form @submit.prevent="postNewBook" class="form-inline mb-5">
+            <form @submit.prevent="postNewBook">
                 <div class="form-group">
                     <label for="imageUrl">Url slike</label>
                         <input
@@ -60,7 +60,7 @@ export default {
       store,
       newImageUrl:'',
       newAutor:'',
-      title:'',
+      newTitle:'',
     };
   },
   mounted(){
@@ -116,3 +116,10 @@ export default {
   },
 };
 </script>
+
+<style>
+h3{
+  text-align: left;
+}
+
+</style>

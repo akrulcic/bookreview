@@ -1,5 +1,5 @@
 <template>
-       <div class="card" id="card" style="width: 150px;">
+       <div class="card" id="card">
             <img class="card-img-top" :src="info.url" alt="Card image cap">
             <div class="card-body">
               <h6 class="card-text">{{  info.autor  }}</h6>
@@ -32,7 +32,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 #button{
   position: absolute;
   right: 3px;
@@ -40,5 +40,10 @@ export default {
   border: none;
   background-color: transparent;
 }
-
+#card{
+  display: inline-flex;
+  float: left;
+  margin: 5px;
+  
+}
 </style>
