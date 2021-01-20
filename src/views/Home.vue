@@ -118,4 +118,8 @@ export default {
     
   }
 }
+.card:hover {
+  transform: scale(1.1);
+  transition: 0.4s all ease-in-out;
+}
 </style>
