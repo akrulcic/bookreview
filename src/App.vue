@@ -126,7 +126,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  
 }
 
 #nav {
@@ -148,6 +148,9 @@ export default {
       background-color: rgba(226, 193, 155, 0.5);
     
     }
+    &.nav-link:hover{
+      color: #b48130;
+    }
   }
 
   h1{
@@ -167,6 +170,10 @@ export default {
 }
 .dropdown:hover .dropbtn {
   background-color: rgba(226, 193, 155, 0.5)
+}
+.card-text{
+  text-decoration: none;
+  color: #353535;
 }
 </style>
 

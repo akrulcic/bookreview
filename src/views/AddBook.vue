@@ -1,56 +1,52 @@
 <template>
-    <div class="row">
-        <div class="col-1"></div>
-        <div class="col-10">
-            <br/>
-            <br/>
-            <h3>Dodaj novu knjigu</h3>
-            <hr/>
-            <br/>
-            <form @submit.prevent="postNewBook">
-                <div class="form-group">
-                    <label for="imageUrl">Url slike</label>
-                        <input
-                        v-model="newImageUrl"
-                        type="text"
-                        class="form-control ml-2"
-                        placeholder="Unesi url slike"
-                        id="imageUrl"
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="imageAutor">Autor</label>
-                        <input
-                        v-model="newAutor"
-                        type="text"
-                        class="form-control ml-2"
-                        placeholder="Unesi autora knjige"
-                        id="autor"
-                    />
-                </div>
-                <div class="form-group">
-                    <label for="imageAutor">Naziv</label>
-                        <input
-                        v-model="newTitle"
-                        type="text"
-                        class="form-control ml-2"
-                        placeholder="Unesi naziv knjige"
-                        id="title"
-                    />
-                </div>
-                <button type="submit" class="btn btn-primary ml-2">Post
-                image</button>
-            </form>
+  <div class="row">
+    <div class="col-1"></div>
+    <div class="col-10">
+      <br />
+      <br />
+      <h3>Dodaj novu knjigu</h3>
+      <hr />
+      <br />
+      <form @submit.prevent="postNewBook">
+        <div class="form-group">
+          <croppa
+            :width="138"
+            :height="207"
+            placeholder="učitaj sliku..."
+            v-model="imageReference"
+          ></croppa>
         </div>
-        <div class="col-1"></div>
+        <div class="form-group">
+          <label for="imageAutor">Autor</label>
+          <input
+            v-model="newAutor"
+            type="text"
+            class="form-control ml-2"
+            placeholder="Unesi autora knjige"
+            id="autor"
+          />
+        </div>
+        <div class="form-group">
+          <label for="imageAutor">Naziv</label>
+          <input
+            v-model="newTitle"
+            type="text"
+            class="form-control ml-2"
+            placeholder="Unesi naziv knjige"
+            id="title"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary ml-2">Post image</button>
+      </form>
     </div>
+    <div class="col-1"></div>
+  </div>
 </template>
 
 <script>
 import BookCard from '@/components/BookCard.vue';
 import store from '@/store.js';
-import { db } from '@/firebase';
-
+import { db, storage } from '@/firebase';
 
 export default {
   name: 'AddBook',
@@ -61,6 +57,7 @@ export default {
       newImageUrl:'',
       newAutor:'',
       newTitle:'',
+      imageReference: null,
     };
   },
   mounted(){
@@ -89,37 +86,57 @@ export default {
         });
       });
     },
-    postNewBook(){
+    postNewBook() {
+      this.imageReference.generateBlob((blobData) => {
+        console.log(blobData);
+        let imageName = 'posts/' + store.currentUser + '/' + Date.now() + '.png';
 
-      const imageUrl = this.newImageUrl;
-      const autor = this.newAutor;
-      const title = this.newTitle;
+        storage
+          .ref(imageName)
+          .put(blobData)
+          .then((result) => {
+            result.ref.getDownloadURL()
+            .then((url) => {
+              console.log('javni link', url);
+              const imageUrl = this.newImageUrl;
+              const autor = this.newAutor;
+              const title = this.newTitle;
 
-      db.collection('posts')
-      .add({
-        url: imageUrl,
-        autor: autor,
-        email: store.currentUser,
-        posted_at: Date.now(),
-        title: title,
-      })
-      .then((doc) =>{
-        console.log('spremljeno', doc);
-        this.newImageUrl = '';
-        this.newAutor= '';
-        this.newTitle = '';
-      })
-      .catch((e) =>{
-        console.error(e);
-      });
+              db.collection('posts')
+              .add({
+                url: url,
+                autor: autor,
+                email: store.currentUser,
+                posted_at: Date.now(),
+                title: title,
+              })
+              .then((doc) =>{
+                console.log('spremljeno', doc);
+                this.imageReference.remove();
+                this.newAutor= '';
+                this.newTitle = '';
+              })
+              .catch((e) =>{
+                console.error(e);
+              });
+            })
+            .catch((e) => {
+              console.error(e);
+            });
+          })
+          .catch((e) => {
+            console.error(e);
+          });
+       });//generateBlob
+      return
     },
+    //postNewBook
   },
 };
 </script>
 
 <style>
-h3{
+h3 {
   text-align: left;
 }
-
 </style>

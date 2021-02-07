@@ -5,7 +5,7 @@
     <div class="col-10">
       <br/>
       <br/>
-      <h3>Preporuke</h3>
+      <h3>Posljednje dodane knjige</h3>
       <hr/>
         <router-link to="/book"><BookCard v-for="card in cards"  :key="card.url" :info="card" /></router-link>
       
@@ -122,4 +122,5 @@ export default {
   transform: scale(1.1);
   transition: 0.4s all ease-in-out;
 }
+
 </style>
